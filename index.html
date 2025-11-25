@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+  <body>
+    <!-- Slider Container -->
+    <div id="slider-container">
+      <label for="meditationSlider">Movement Level</label>
+      <input type="range" id="meditationSlider" min="0" max="100" value="50" />
+    </div>
+
+    <!-- Toggleable Info Box in Bottom Right -->
+    <div id="interaction-instructions" class="collapsed">
+      <div id="instructions-header">
+        <strong>INFO</strong> <span id="toggle-icon">+</span>
+      </div>
+
+      <div id="instructions-content">
+        <p>Use the slider <strong>above</strong> to adjust movement level.</p>
+        <p>
+          <strong>Move</strong> your cursor gently to guide the serene currents.
+        </p>
+        <p>
+          <strong>Click</strong> the canvas for a soft, radiating ripple of
+          tranquility.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
