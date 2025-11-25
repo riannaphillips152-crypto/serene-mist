@@ -36,10 +36,9 @@ function setup() {
   console.log("setup() called - creating canvas for Calm");
   createCanvas(windowWidth, windowHeight);
   
-  // Use HSB color mode as requested in your code
   colorMode(HSB, 360, 100, 100, 1);
   
-  // FIX: Performance Optimization
+  // formance Optimization
   pixelDensity(1);
   
   // --- VIDEO CAPTURE SETUP ---
@@ -51,9 +50,7 @@ function setup() {
   if (!meditationSlider) {
       console.error("Meditation slider not found!");
   }
-  
-  // Attach the event listener to the info box
-  const infoBox = document.getElementById('interaction-instructions');
+    const infoBox = document.getElementById('interaction-instructions');
   if (infoBox) {
       infoBox.addEventListener('click', toggleInfo);
   }
@@ -65,8 +62,6 @@ function setup() {
 
 function draw() {
   if (calmInstance) {
-    // IMPORTANT: Your Calm class uses translate(width/2, height/2).
-    // We must wrap it in push/pop so it doesn't mess up the video drawing coordinates.
     push(); 
     calmInstance.draw();
     pop();
@@ -80,7 +75,7 @@ function draw() {
   
   // --- DRAW VIDEO CAPTURE (Bottom Left) ---
   if (capture && capture.loadedmetadata) {
-      // Match the visual width of the info box (approx 230px + padding)
+      // Match  visual width of the info box (approx 230px + padding)
       let vidWidth = 260; 
       let vidHeight = (capture.height / capture.width) * vidWidth; 
       
@@ -91,9 +86,9 @@ function draw() {
       // Draw video
       image(capture, x, y, vidWidth, vidHeight);
       
-      // Border styling matching the Calm theme
+      // Border styling math Calm theme
       noFill();
-      stroke(200, 20, 90, 0.5); // HSB stroke (Light pastel blue-ish)
+      stroke(200, 20, 90, 0.5); // HSB stroke
       strokeWeight(2);
       rect(x, y, vidWidth, vidHeight);
       pop();
@@ -133,7 +128,7 @@ class Calm {
     this.rippleMax = 300; // Increased max ripple size for better visibility
     this.rippleDecay = 7; // Adjusted decay rate
     this.rippleOrigin = createVector(0,0); 
-    this.rippleZOff = 0; // New: For dynamic waviness of the ripple
+    this.rippleZOff = 0; // dynamic waviness of the ripple
   }
 
   setup() {
@@ -148,7 +143,7 @@ class Calm {
 
   draw() {
     if (meditationSlider) { 
-      // Map slider 0-100 to meditation level 1-0 (0 is still, 100 is active)
+      // Map slider 0-100 to meditation/movement level 1-0 (0 is still, 100 is active)
       this.meditationLevel = map(meditationSlider.value, 0, 100, 1, 0); 
     } else {
       this.meditationLevel = 1; 
@@ -163,7 +158,7 @@ class Calm {
     let noiseInfluence = map(this.meditationLevel, 0, 1, 1.5, 0.5); 
     let particleSpeedModifier = map(this.meditationLevel, 0, 1, 1.0, 0.3); 
 
-    // DRAW THE WAVY RIPPLE EFFECT
+    //  WAVY RIPPLE EFFECT
     if (this.rippleEffect > 0) {
         let currentRadius = this.rippleEffect;
         let rippleAlpha = map(currentRadius, 0, this.rippleMax, 0.5, 0); // Fades out as it expands
@@ -174,24 +169,24 @@ class Calm {
         noFill();
 
         beginShape();
-        for (let a = 0; a < 360; a += 5) { // Draw points every 5 degrees for a smooth shape
+        for (let a = 0; a < 360; a += 5) { // Draw points every 5 degrees for a smoother shape
             let xOff = map(cos(a), -1, 1, 0, 3);
             let yOff = map(sin(a), -1, 1, 0, 3);
             // Noise based on angle and rippleZOff for dynamic waviness
             let displacement = map(noise(xOff, yOff, this.rippleZOff), 0, 1, -20, 20); // Waviness amount
             
-            let r = currentRadius + displacement; // Apply displacement to current radius
+            let r = currentRadius + displacement; //  displacement to current radius
             let x = this.rippleOrigin.x + r * cos(a);
             let y = this.rippleOrigin.y + r * sin(a);
             vertex(x, y);
         }
         endShape(CLOSE); // Connect the last point to the first
 
-        this.rippleEffect += this.rippleDecay; // INCREASE rippleEffect to expand the wave
+        this.rippleEffect += this.rippleDecay; // more rippleEffect to expand the wave
         this.rippleZOff += 0.03; // Increment rippleZOff for wave animation
     }
 
-    // Decay the ripple after it has expanded
+    // Decay the ripple after expanded
     if (this.rippleEffect >= this.rippleMax) {
         this.rippleEffect = 0; // Reset after full expansion
         this.rippleZOff = 0; // Reset noise seed for next ripple
@@ -230,7 +225,7 @@ class Calm {
   }
 
   mousePressed() {
-    // Switch palette on click
+    // Switch palette on click between yellow/white - pastel colours
     if (this.currentPalette === calmPalette1) {
       this.applyPalette(calmPalette2);
     } else {
